@@ -1,0 +1,49 @@
+version: "3.4"
+
+services:
+  ms-template:
+    container_name: ms-template
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ms-template.rule=PathPrefix(`/template`)"
+    user: root
+    build:
+      context: .
+      target: build
+    volumes:
+      - ./:/opt/app
+      - /opt/app/node_modules
+    ports:
+      - 5501:5501
+    env_file:
+      - ./database.env
+    links:
+      - ms-template-db
+    environment:
+      - NODE_ENV=development
+    command: ./shell/start-dev.sh
+
+  ms-template-db:
+    container_name: ms-template-db
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    env_file:
+      - ./database.env
+    volumes:
+      - ms_template_db_vol:/var/lib/mongo
+
+  ms-template-db-express:
+    container_name: ms-template-db-express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    env_file:
+      - ./database.env
+    links:
+      - ms-template-db
+
+volumes:
+  ms_template_db_vol:
