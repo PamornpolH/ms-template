@@ -1,7 +1,7 @@
 import { createLogger, transports, format, Logger } from 'winston';
 import rTracer from 'cls-rtracer';
 
-const rTracerFormat = format.printf(info => {
+const rTracerFormat = format.printf((info: any): string => {
   const rid = rTracer.id();
   return rid ? `${info.timestamp} [request-id:${rid}]: ${info.message}` : `${info.timestamp}: ${info.message}`;
 });

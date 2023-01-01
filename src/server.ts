@@ -1,10 +1,12 @@
+import dotenv from 'dotenv-safe';
 import mongoose from 'mongoose';
 import express from 'express';
 import Routes from '@src/route';
 
 async function main() {
-    const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, PORT} = process.env;
-    const connectionString = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}/ms-template?authSource=admin`;
+    const { MONGO_USERNAME, MONGO_PASSWORD, PORT} = process.env;
+
+    const connectionString = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/ms-template?authSource=admin`;
     mongoose.connect(connectionString, (err: unknown) => {
       if (err) {
         console.log(err);
