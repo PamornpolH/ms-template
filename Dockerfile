@@ -14,7 +14,7 @@ USER node
 FROM base as release
 
 USER root
-RUN npm install --only=production \
+RUN npm install --omit=dev \
  && chown -R node /opt/app
 
 USER node
