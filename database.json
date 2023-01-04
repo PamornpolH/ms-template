@@ -1,0 +1,9 @@
+{
+    "development": {
+      "driver": "mongodb",
+      "user": {"ENV": "MONGODB_USERNAME"},
+      "password": {"ENV": "MONGODB_PASSWORD"},
+      "database": {"ENV": "MONGODB_DATABASE"},
+      "host": {"ENV": "MONGODB_HOST"}
+    }
+  }
